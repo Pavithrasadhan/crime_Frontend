@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
+const backendUrl = process.env.REACT_APP_BACKEND_URL;
+
 const EditUser = () => {
   const { id } = useParams();
   const navigate = useNavigate();
@@ -20,7 +22,7 @@ const EditUser = () => {
 
   const fetchUser = async () => {
     try {
-      const response = await axios.get(`http://localhost:5000/api/user/${id}`);
+      const response = await axios.get(`${backendUrl}/api/user/${id}`);
       setUser(response.data || {}); 
     } catch (error) {
       console.log('Error fetching user:', error);
@@ -35,7 +37,7 @@ const EditUser = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await axios.put(`http://localhost:5000/api/user/${id}`, user);
+      await axios.put(`${backendUrl}/api/user/${id}`, user);
       navigate('/user');
     } catch (error) {
       console.error('Error updating user:', error);

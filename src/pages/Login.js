@@ -4,6 +4,8 @@ import axios from "axios";
 import MainHeader from "../components/MainHeader";
 import MainFooter from "../components/MainFooter";
 
+const backendUrl = process.env.REACT_APP_BACKEND_URL;
+
 function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -17,7 +19,7 @@ function Login() {
     setError("");
 
     try {
-      const result = await axios.post("http://localhost:5000/api/user/login", {
+      const result = await axios.post(`${backendUrl}/api/user/login`, {
         email,
         password,
       });

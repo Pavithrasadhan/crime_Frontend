@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 
+const backendUrl = process.env.REACT_APP_BACKEND_URL;
+
 const AddUser = () => {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
@@ -21,7 +23,7 @@ const AddUser = () => {
     const newUser = { name, email, phone, password, aadharNo, role };
     console.log(newUser);
 
-    axios.post('http://localhost:5000/api/user/register', newUser)
+    axios.post(`${backendUrl}/api/user/register`, newUser)
       .then((response) => {
         console.log(response.data);
         setName('');

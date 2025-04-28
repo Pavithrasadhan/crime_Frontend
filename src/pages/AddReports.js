@@ -4,6 +4,8 @@ import axios from "axios";
 import MainHeader from "../components/MainHeader";
 import MainFooter from "../components/MainFooter";
 
+const backendUrl = process.env.REACT_APP_BACKEND_URL;
+
 const AddReports = () => {
   const [type, setType] = useState("");
   const [location, setLocation] = useState("");
@@ -32,7 +34,7 @@ const AddReports = () => {
     };
 
     try {
-      await axios.post("http://localhost:5000/api/report", newReport);
+      await axios.post(`${backendUrl}/api/report`, newReport);
       navigate("/userdashboard");
     } catch (error) {
       console.error("Error submitting report:", error);

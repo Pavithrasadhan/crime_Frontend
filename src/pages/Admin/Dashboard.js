@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 
+const backendUrl = process.env.REACT_APP_BACKEND_URL;
+
 const Dashboard = () => {
   const [report, setReports] = useState([]);
   const [users, setUsers] = useState([]);
@@ -15,7 +17,7 @@ const Dashboard = () => {
 
   const fetchUsers = async () => {
     try {
-      const response = await axios.get("http://localhost:5000/api/user");
+      const response = await axios.get(`${backendUrl}/api/user`);
       console.log(response.data);
       setUsers(response.data.users || []);
     } catch (error) {
@@ -25,7 +27,7 @@ const Dashboard = () => {
   
   const fetchReports = async () => {
     try {
-      const response = await axios.get("http://localhost:5000/api/report");
+      const response = await axios.get(`${backendUrl}/api/report`);
       console.log(response.data);
       setReports(response.data.report || []);
     } catch (error) {

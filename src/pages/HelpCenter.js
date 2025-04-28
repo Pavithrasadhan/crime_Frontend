@@ -3,6 +3,8 @@ import axios from "axios";
 import MainHeader from "../components/MainHeader";
 import MainFooter from "../components/MainFooter";
 
+const backendUrl = process.env.REACT_APP_BACKEND_URL;
+
 const HelpCenter = () => {
   const [faqs, setFaqs] = useState([]);
   const [filteredFaqs, setFilteredFaqs] = useState([]);
@@ -14,7 +16,7 @@ const HelpCenter = () => {
   useEffect(() => {
     const fetchFAQs = async () => {
       try {
-        const response = await axios.get("http://localhost:5000/api/faq");
+        const response = await axios.get(`${backendUrl}/api/faq`);
         setFaqs(response.data.faqs || []);
         setFilteredFaqs(response.data.faqs || []);
       } catch (error) {
@@ -44,7 +46,7 @@ const HelpCenter = () => {
       setVisibleCount(3);
     } else {
       try {
-        const response = await axios.get(`http://localhost:5000/api/search/faq`, {
+        const response = await axios.get(`${backendUrl}/api/search/faq`, {
           params: { search: term }
         });
         setFilteredFaqs(response.data.faqs || []);

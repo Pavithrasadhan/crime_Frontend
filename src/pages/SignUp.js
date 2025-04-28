@@ -4,6 +4,8 @@ import axios from "axios";
 import MainHeader from "../components/MainHeader";
 import MainFooter from "../components/MainFooter";
 
+const backendUrl = process.env.REACT_APP_BACKEND_URL;
+
 function SignUp() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -55,7 +57,7 @@ function SignUp() {
     setLoading(true);
     setError(null);
 
-    axios.post("http://localhost:5000/api/user/register", {
+    axios.post(`${backendUrl}/api/user/register`, {
       name,
       email,
       phone,

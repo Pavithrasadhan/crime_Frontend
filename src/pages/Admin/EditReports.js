@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
+const backendUrl = process.env.REACT_APP_BACKEND_URL;
+
 const EditReport = () => {
   const { userName } = useParams();
   const navigate = useNavigate();
@@ -22,7 +24,7 @@ const EditReport = () => {
 
   const fetchReport = async () => {
     try {
-      const response = await axios.get(`http://localhost:5000/api/report/${userName}`);
+      const response = await axios.get(`${backendUrl}/api/report/${userName}`);
       if (response.data.report) {
         setReport(response.data.report);
       } else {
@@ -35,7 +37,7 @@ const EditReport = () => {
 
   const fetchOfficers = async () => {
     try {
-      const response = await axios.get(`http://localhost:5000/api/user`, {
+      const response = await axios.get(`${backendUrl}/api/user`, {
         params: { role: 'Officer' }
       });
       setOfficers(response.data.users || []);

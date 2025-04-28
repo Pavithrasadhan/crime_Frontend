@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { Link } from "react-router-dom";
 import axios from 'axios';
 
+const backendUrl = process.env.REACT_APP_BACKEND_URL;
+
 const User = () => {
   const [user, setUser] = useState([]);
   const [searchTerm, setSearchTerm] = useState('');
@@ -25,7 +27,7 @@ const User = () => {
       const { page, limit } = Pagination;
       const params = { page, limit };
 
-      const response = await axios.get("http://localhost:5000/api/user", { params });
+      const response = await axios.get(`${backendUrl}/api/user`, { params });
       setUser(response.data.users|| []);
       setPagination((prev) => ({
         ...prev,
@@ -40,7 +42,7 @@ const User = () => {
   const searchUser = async () => {
     try {
       const params = { search: searchTerm };
-      const response = await axios.get('http://localhost:5000/api/search/user', { params });
+      const response = await axios.get(`${backendUrl}/api/search/user`, { params });
       setUser(response.data.users || []);
       setPagination({
         ...Pagination,
@@ -65,7 +67,7 @@ const User = () => {
 
   const deleteUser = async (id) => {
     try {
-      await axios.delete(`http://localhost:5000/api/user/${id}`);
+      await axios.delete(`${backendUrl}/api/user/${id}`);
       setUser(user.filter((u) => u._id !== id ));
       fetchUser();
     } catch (err) {

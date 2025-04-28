@@ -4,6 +4,8 @@ import axios from "axios";
 import MainHeader from "../components/MainHeader";
 import MainFooter from "../components/MainFooter";
 
+const backendUrl = process.env.REACT_APP_BACKEND_URL;
+
 const UserDashboard = () => {
   const [user, setUser] = useState(null);
   const [reports, setReports] = useState([]);
@@ -26,7 +28,7 @@ const UserDashboard = () => {
       console.log("Fetching reports for username:", username);
 
       const response = await axios.get(
-        `http://localhost:5000/api/report/user-reports?username=${username}`,
+        `${backendUrl}/api/report/user-reports?username=${username}`,
         {
           headers: {
             "Content-Type": "application/json",

@@ -2,6 +2,8 @@ import React, { useState, useEffect, useCallback } from 'react';
 import { Link } from "react-router-dom";
 import axios from 'axios';
 
+const backendUrl = process.env.REACT_APP_BACKEND_URL;
+
 const HelpCenterAdmin = () => {
   const [faq, setFaq] = useState([]);
   const [searchTerm, setSearchTerm] = useState('');
@@ -18,7 +20,7 @@ const HelpCenterAdmin = () => {
       const { page, limit } = pagination;
       const params = { page, limit };
 
-      const response = await axios.get("http://localhost:5000/api/faq", { params });
+      const response = await axios.get(`${backendUrl}/api/faq`, { params });
 
       setFaq(response.data.faqs || []);
       setPagination((prev) => ({
@@ -35,7 +37,7 @@ const HelpCenterAdmin = () => {
   const searchFaq = useCallback(async () => {
     try {
       const params = { search: searchTerm };
-      const response = await axios.get('http://localhost:5000/api/search/faq', { params });
+      const response = await axios.get(`${backendUrl}/api/search/faq`, { params });
 
       setFaq(response.data.faqs || []);
       setPagination((prev) => ({
@@ -72,7 +74,7 @@ const HelpCenterAdmin = () => {
   // Delete FAQ
   const deleteFaq = async (id) => {
     try {
-      await axios.delete(`http://localhost:5000/api/faq/${id}`);
+      await axios.delete(`${backendUrl}/api/faq/${id}`);
       setFaq((prev) => prev.filter((f) => f._id !== id));
       fetchFaq();
     } catch (err) {

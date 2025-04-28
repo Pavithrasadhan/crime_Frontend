@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
 
+const backendUrl = process.env.REACT_APP_BACKEND_URL;
+
 const Reports = () => {
   const [reports, setReports] = useState([]);
   const [searchTerm, setSearchTerm] = useState('');
@@ -25,7 +27,7 @@ const Reports = () => {
       const { page, limit } = Pagination;
       const params = { page, limit };
 
-      const response = await axios.get(`http://localhost:5000/api/report`, { params });
+      const response = await axios.get(`${backendUrl}/api/report`, { params });
       setReports(response.data.report || []);
       setPagination((prev) => ({
         ...prev,
@@ -40,7 +42,7 @@ const Reports = () => {
   const searchReport = async () => {
     try {
       const params = { search: searchTerm };
-      const response = await axios.get('http://localhost:5000/api/search/report', { params });
+      const response = await axios.get(`${backendUrl}/search/report`, { params });
       setReports(response.data.report || []);
       setPagination({
         ...Pagination,
@@ -67,7 +69,7 @@ const Reports = () => {
 
   const deleteReports = async (id) => {
     try {
-      await axios.delete(`http://localhost:5000/api/report/${id}`);
+      await axios.delete(`${backendUrl}/api/report/${id}`);
       setReports(reports.filter(r => r._id !== id));
       fetchReports();
     } catch (err) {

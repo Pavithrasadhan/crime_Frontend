@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
+const backendUrl = process.env.REACT_APP_BACKEND_URL;
+
 const AddFAQ = () => {
   const [faq, setFaq] = useState({
     question: '',
@@ -26,7 +28,7 @@ const AddFAQ = () => {
     }
 
     try {
-      await axios.post('http://localhost:5000/api/faq', faq);
+      await axios.post(`${backendUrl}/api/faq`, faq);
       navigate('/faq');
     } catch (error) {
       console.error('Error adding FAQ:', error);

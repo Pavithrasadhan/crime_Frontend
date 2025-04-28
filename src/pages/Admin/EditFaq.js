@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import axios from 'axios';
 
+const backendUrl = process.env.REACT_APP_BACKEND_URL;
+
 const EditFaq = () => {
   const { id } = useParams();
   const [faq, setFaq] = useState({
@@ -16,7 +18,7 @@ const EditFaq = () => {
   useEffect(() => {
     const fetchFaq = async () => {
       try {
-        const response = await axios.get(`http://localhost:5000/api/faq/${id}`);
+        const response = await axios.get(`${backendUrl}/api/faq/${id}`);
         if (response.data) {
           setFaq(response.data);
         } else {
@@ -51,7 +53,7 @@ const EditFaq = () => {
     }
 
     try {
-      await axios.put(`http://localhost:5000/api/faq/${id}`, faq);
+      await axios.put(`${backendUrl}/api/faq/${id}`, faq);
       navigate('/faq');
     } catch (error) {
       console.error('Error updating FAQ:', error);
