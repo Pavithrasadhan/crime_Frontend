@@ -16,7 +16,7 @@ const Header = () => {
     localStorage.removeItem("authToken");
     localStorage.removeItem("user");
     setUserName("");
-    navigate("/dashboard");
+    navigate("/");
   };
 
   return (
